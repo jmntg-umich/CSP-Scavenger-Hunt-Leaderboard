@@ -5,7 +5,7 @@ class TeamDashboard {
         this.teams = [];
         this.init();
     }
-
+ 
     async init() {
         this.updateLastUpdateTime();
         await this.fetchSpreadsheetData();
