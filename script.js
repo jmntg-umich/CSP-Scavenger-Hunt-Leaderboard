@@ -7,37 +7,40 @@ class TeamDashboard {
     }
  
     async init() {
-        this.updateLastUpdateTime();
-        await this.fetchSpreadsheetData();
-        this.renderTeamList();
-        setInterval(() => this.updateLastUpdateTime(), 1000);
-        setInterval(() => this.fetchSpreadsheetData(), 5000);
-    }
+    await this.fetchSpreadsheetData();
+    this.renderTeamList();
+
+    setInterval(() => this.fetchSpreadsheetData(), 2000);
+}
 
     async fetchSpreadsheetData() {
-        try {
-            const url = `https://docs.google.com/spreadsheets/d/${this.spreadsheetId}/gviz/tq?tqx=out:csv&range=${this.range}`;
-            const response = await fetch(url);
-            const csvText = await response.text();
+    try {
+        const url = `https://docs.google.com/spreadsheets/d/${this.spreadsheetId}/gviz/tq?tqx=out:csv&range=${this.range}`;
+        const response = await fetch(url);
+        const csvText = await response.text();
+        
+        const lines = csvText.trim().split('\n');
+
+        if (lines.length >= 2) {
+            const teamNames = lines[0].split(',').map(name => name.replace(/"/g, '').trim());
+            const teamPoints = lines[1].split(',').map(points => parseInt(points.replace(/"/g, '').trim()) || 0);
             
-            const lines = csvText.trim().split('\n');
-            if (lines.length >= 2) {
-                const teamNames = lines[0].split(',').map(name => name.replace(/"/g, '').trim());
-                const teamPoints = lines[1].split(',').map(points => parseInt(points.replace(/"/g, '').trim()) || 0);
-                
-                this.teams = teamNames.map((name, index) => ({
-                    name: name || `Team ${index + 1}`,
-                    points: teamPoints[index] || 0
-                }));
-                
-                this.sortTeams();
-                this.renderTeamList();
-            }
-        } catch (error) {
-            console.error('Error fetching spreadsheet data:', error);
-            document.getElementById('lastUpdate').textContent = 'Error loading data';
+            this.teams = teamNames.map((name, index) => ({
+                name: name || `Team ${index + 1}`,
+                points: teamPoints[index] || 0
+            }));
+            
+            this.sortTeams();
+            this.renderTeamList();
+
+            // Update timestamp only after successful data fetch
+            this.updateLastUpdateTime();
         }
+    } catch (error) {
+        console.error('Error fetching spreadsheet data:', error);
+        document.getElementById('lastUpdate').textContent = 'Error loading data';
     }
+}
 
     sortTeams() {
         this.teams.sort((a, b) => b.points - a.points);
@@ -77,11 +80,12 @@ class TeamDashboard {
     updateLastUpdateTime() {
         const now = new Date();
         const timeString = now.toLocaleTimeString();
+
         const element = document.getElementById('lastUpdate');
         if (element) {
             element.textContent = `Last updated: ${timeString}`;
-        }
     }
+}
 }
 
 const dashboard = new TeamDashboard();
