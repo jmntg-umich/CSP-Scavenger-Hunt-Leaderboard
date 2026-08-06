@@ -1,6 +1,6 @@
 class TeamDashboard {
     constructor() {
-        this.spreadsheetId = '1jL_LruiWD43MGIAWaCqcPTQohj1Zn5rrAkyP_p6Qqt4';
+        this.spreadsheetId = '197ZI44p6tyB0MfrdYN5l5v1Ok68dt5e1JNAfzHFsLzw';
         this.range = 'E1:I2';
         this.teams = [];
         this.init();
