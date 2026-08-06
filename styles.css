@@ -8,7 +8,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #00274C 0%, #001a33 100%);
     min-height: 100vh;
-    color: #333;
+    color: #9e9e9e;
 }
 
 .container {
@@ -19,7 +19,7 @@ body {
 
 header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 5px;
     color: white;
 }
 
@@ -42,7 +42,6 @@ header h1 {
     height: 12px;
     border-radius: 50%;
     background: #FFCB05;
-    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
@@ -59,13 +58,7 @@ header h1 {
     margin: 0 auto;
 }
 
-.card {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+
 
 .card:hover {
     transform: translateY(-5px);
@@ -96,7 +89,7 @@ header h1 {
 
 .stat-label {
     font-weight: 600;
-    color: #4a5568;
+    color: #ffffff;
 }
 
 .stat-value {
@@ -133,9 +126,9 @@ header h1 {
     top: 0;
     left: 0;
     height: 100%;
-    background: linear-gradient(90deg, #FFCB05 0%, #e6b305 100%);
+    background:  #FFCB05;
     transition: width 0.8s ease;
-    opacity: 0.3;
+    opacity: 1;
 }
 
 .team-content {
@@ -168,7 +161,7 @@ header h1 {
 
 .team-points {
     font-size: 1rem;
-    color: #FFCB05;
+    color: #00274C;
     font-weight: 500;
 }
 
