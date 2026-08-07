@@ -1,7 +1,7 @@
 class TeamDashboard {
     constructor() {
         this.spreadsheetId = '197ZI44p6tyB0MfrdYN5l5v1Ok68dt5e1JNAfzHFsLzw';
-        this.range = 'E1:I2';
+        this.range = 'F1:I2';
         this.teams = [];
         this.init();
     }
