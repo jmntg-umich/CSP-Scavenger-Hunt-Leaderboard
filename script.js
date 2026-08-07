@@ -22,18 +22,23 @@ class TeamDashboard {
         const lines = csvText.trim().split('\n');
 
         if (lines.length >= 2) {
-            const teamNames = lines[0].split(',').map(name => name.replace(/"/g, '').trim());
-            const teamPoints = lines[1].split(',').map(points => parseInt(points.replace(/"/g, '').trim()) || 0);
-            
-            this.teams = teamNames.map((name, index) => ({
-                name: name || `Team ${index + 1}`,
-                points: teamPoints[index] || 0
-            }));
-            
+            const teamNames = lines[0]
+                .split(',')
+                .map(name => name.replace(/"/g, '').trim());
+
+            const teamPoints = lines[1]
+                .split(',')
+                .map(points => parseInt(points.replace(/"/g, '').trim()) || 0);
+
+            this.teams = teamNames
+                .map((name, index) => ({
+                    name,
+                    points: teamPoints[index] || 0
+                }))
+                .filter(team => team.name !== '');
+
             this.sortTeams();
             this.renderTeamList();
-
-            // Update timestamp only after successful data fetch
             this.updateLastUpdateTime();
         }
     } catch (error) {
